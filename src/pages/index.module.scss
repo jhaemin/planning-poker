@@ -1,0 +1,50 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  height: calc(100vh - 50px);
+
+  padding: 25px;
+
+  gap: 40px;
+}
+
+.title {
+  font-size: 60px;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1;
+}
+
+.createRoom {
+  appearance: none;
+  border: none;
+  border-radius: 50px;
+  background: none;
+
+  border: 2px solid #000;
+  padding: 20px 30px;
+  font-size: 25px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all 0.1s ease;
+
+  &:hover {
+    background: #000;
+    color: #fff;
+  }
+}
+
+.releaseNotes {
+  color: #0080ff;
+
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

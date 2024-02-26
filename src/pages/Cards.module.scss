@@ -1,0 +1,56 @@
+.cards {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 15px;
+
+  align-items: center;
+  justify-content: space-evenly;
+
+  max-width: 640px;
+
+  transition: filter 200ms ease, opacity 200ms ease;
+
+  &.disabled {
+    opacity: 0.4;
+    pointer-events: none;
+    filter: blur(1px);
+  }
+
+  &.tShirt {
+    max-width: 424px;
+  }
+}
+
+.card {
+  flex: none;
+
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  background-color: #fff;
+
+  width: 80px;
+  height: 120px;
+
+  font-size: 26px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  transition: background-color 100ms ease, transform 100ms ease;
+
+  &:hover {
+    background-color: #f0f0f0;
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+
+  &.selected {
+    background-color: #222;
+    color: #fff;
+  }
+}
