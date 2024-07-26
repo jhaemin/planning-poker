@@ -10,7 +10,9 @@
     "typecheck": "tsc --noEmit",
     "typecheck:watch": "tsc --noEmit --watch",
     "dev:api-server": "bun --watch src/api-server/main.ts",
-    "start:api-server": "NODE_ENV=production bun src/api-server/main.ts"
+    "start:api-server": "NODE_ENV=production bun src/api-server/main.ts",
+    "pm2:start": "pm2 start \"bun run start\" --name \"pp.land\"",
+    "pm2:start:api": "pm2 start \"bun run start:api-server\" --name \"pp.api\""
   },
   "dependencies": {
     "chance": "^1.1.11",
