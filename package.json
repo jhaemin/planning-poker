@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "next start --port 12346",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "typecheck:watch": "tsc --noEmit --watch",

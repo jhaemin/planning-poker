@@ -109,7 +109,7 @@ io.on('connection', (socket) => {
   })
 })
 
-server.listen(4111)
+server.listen(isProduction ? 12347 : 4111)
 
 /**
  * Cron job:
