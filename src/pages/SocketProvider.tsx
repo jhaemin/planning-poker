@@ -13,7 +13,7 @@ export function SocketProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const socketHost =
       process.env.NODE_ENV === 'production'
-        ? 'https://api.baemin.dev'
+        ? 'https://api.pp.land'
         : 'http://localhost:4111'
 
     const socket = io(socketHost, {

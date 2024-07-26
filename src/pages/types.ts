@@ -1,7 +1,3 @@
-/**
- * Copied from baemin.dev-server
- */
-
 export type Choice = number | string
 
 export type PokerPlayer = {

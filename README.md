@@ -1,6 +1,6 @@
 # Planning Poker
 
-https://baemin.dev/planning-poker
+https://pp.land
 
 ## Development
 

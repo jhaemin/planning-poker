@@ -10,12 +10,17 @@ type ReleaseNote = {
 
 const releaseNotes: ReleaseNote[] = [
   {
+    version: '1.2.0',
+    date: '2024-07-26',
+    description: ['Moved to pp.land'],
+  },
+  {
     version: '1.1.0',
     date: '2023-08-11',
     description: [
-      'Add T-shirt sizing',
-      'Improve accessibility',
-      'Optimize performance',
+      'Added T-shirt sizing',
+      'Improved accessibility',
+      'Optimized performance',
       'You can now cancel your vote',
     ],
   },

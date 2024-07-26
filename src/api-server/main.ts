@@ -44,7 +44,7 @@ const server = createServer(app)
 const options = {
   cors: {
     origin: isProduction
-      ? 'https://baemin.dev'
+      ? 'https://pp.land'
       : ['http://localhost:3000', 'http://localhost:4110'],
   },
 } as any
@@ -58,7 +58,7 @@ app.use(
 )
 
 app.get('/', (req, res) => {
-  res.send('api.baemin.dev')
+  res.send('api.pp.land')
 })
 
 io.on('connection', (socket) => {
