@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
+  typedRoutes: true,
   experimental: {
-    typedRoutes: true,
     scrollRestoration: true,
   },
   pageExtensions: ['page.tsx', 'page.ts', 'app.tsx', 'app.ts', 'api.ts'],

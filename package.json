@@ -25,7 +25,7 @@
     "ioredis": "^5.3.2",
     "jotai": "^2.6.5",
     "nanoid": "^5.0.6",
-    "next": "14.1.0",
+    "next": "15.5.28",
     "react": "^18",
     "react-dom": "^18",
     "react-flip-toolkit": "^7.1.0",
@@ -40,7 +40,7 @@
     "@types/react-dom": "^18",
     "bun-types": "^1.0.29",
     "eslint": "^8",
-    "eslint-config-next": "14.1.0",
+    "eslint-config-next": "15.5.28",
     "sass": "^1.71.1",
     "typescript": "^5"
   }
