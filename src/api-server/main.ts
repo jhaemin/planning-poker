@@ -140,10 +140,17 @@ statsApp.get('/stats', async (req, res) => {
   }
 })
 
-statsApp.listen(
-  Number(process.env.STATS_PORT || (isProduction ? 22347 : 4112)),
-  '127.0.0.1'
+const statsPort = Number(
+  process.env.STATS_PORT || (isProduction ? 22347 : 4112)
 )
+
+// Stats are secondary: failing to bind (e.g. the port is taken) must not
+// crash the game server, which an unhandled 'error' event would do.
+statsApp
+  .listen(statsPort, '127.0.0.1')
+  .on('error', (err) =>
+    console.error(`stats: could not listen on 127.0.0.1:${statsPort}:`, err)
+  )
 
 /**
  * Cron job:
