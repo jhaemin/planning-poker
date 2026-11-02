@@ -3,8 +3,29 @@ import { useAtomValue } from 'jotai'
 import { useRouter } from 'next/router'
 import { ReactNode, useEffect } from 'react'
 import { io } from 'socket.io-client'
+import { nanoid } from 'nanoid'
 import s from './SocketProvider.module.scss'
 import { connectedSocketAtom } from './atoms'
+
+const VISITOR_ID_KEY = 'pp:visitor-id'
+
+/**
+ * Anonymous, random per-browser id used only to count unique visitors.
+ * Storage can be unavailable (private mode, blocked site data); the
+ * connection still counts, just not as a unique visitor.
+ */
+function getVisitorId() {
+  try {
+    let id = localStorage.getItem(VISITOR_ID_KEY)
+    if (!id) {
+      id = nanoid()
+      localStorage.setItem(VISITOR_ID_KEY, id)
+    }
+    return id
+  } catch {
+    return undefined
+  }
+}
 
 export function SocketProvider({ children }: { children: ReactNode }) {
   const router = useRouter()
@@ -19,6 +40,7 @@ export function SocketProvider({ children }: { children: ReactNode }) {
     const socket = io(socketHost, {
       query: {
         socketFor: 'planningPoker',
+        visitorId: getVisitorId(),
       },
     })
 

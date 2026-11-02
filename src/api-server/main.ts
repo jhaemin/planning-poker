@@ -17,6 +17,7 @@ import {
   vote,
 } from './functions'
 import { redis } from './redis'
+import { getStats, parseVisitorId, recordConnection } from './stats'
 import { Choice, PokerRoom } from './types'
 
 const isProduction = process.env.NODE_ENV === 'production'
@@ -64,6 +65,11 @@ app.get('/', (req, res) => {
 io.on('connection', (socket) => {
   const socketFor = socket.handshake.query.socketFor
 
+  if (socketFor === 'planningPoker') {
+    socket.data.visitorId = parseVisitorId(socket.handshake.query.visitorId)
+    recordConnection(io, socket.data.visitorId)
+  }
+
   socket.on('disconnect', async () => {
     if (socketFor === 'planningPoker') {
       await leaveRoom({ io, socket })
@@ -110,6 +116,34 @@ io.on('connection', (socket) => {
 })
 
 server.listen(isProduction ? 12347 : 4111)
+
+/**
+ * Usage stats for the console (console-api proxies this). Bound to loopback
+ * only: unlike the socket server above it is not exposed through nginx, so
+ * it needs no auth of its own.
+ */
+const statsApp = express()
+
+statsApp.get('/stats', async (req, res) => {
+  const days = Number(req.query.days ?? 30)
+
+  if (!Number.isInteger(days) || days < 1 || days > 365) {
+    res.status(400).json({ error: 'days must be an integer from 1 to 365' })
+    return
+  }
+
+  try {
+    res.json(await getStats(io, days))
+  } catch (err) {
+    console.error('stats:', err)
+    res.status(500).json({ error: 'Failed to read stats' })
+  }
+})
+
+statsApp.listen(
+  Number(process.env.STATS_PORT || (isProduction ? 22347 : 4112)),
+  '127.0.0.1'
+)
 
 /**
  * Cron job:

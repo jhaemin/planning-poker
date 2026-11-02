@@ -4,6 +4,7 @@ import { Server, Socket } from 'socket.io'
 import { REDIS_POKER_KEY_PREFIX } from './constants'
 import { rng } from './random-name-generator'
 import { redis } from './redis'
+import { incrementDaily, recordJoin } from './stats'
 import { Choice, PokerPlayer, PokerRoom } from './types'
 
 const chance = new Chance()
@@ -46,6 +47,8 @@ export async function createRoom({ socket }: { socket: Socket }) {
   await redis.set(roomKey(roomId), JSON.stringify(room))
 
   socket.emit('poker:server:created-room', room.id)
+
+  incrementDaily('roomsCreated')
 
   return room
 }
@@ -97,6 +100,8 @@ export async function joinRoom({
   socket.join(roomKey(roomId))
 
   socket.emit('poker:server:joined-room')
+
+  recordJoin(socket.data.visitorId ?? null)
 
   await emitPlayerUpdate({ socket, player })
   await broadcastRoomUpdate({ io, room })
@@ -213,6 +218,7 @@ export async function stopVote({ io, socket }: { io: Server; socket: Socket }) {
   room.status = 'finished'
 
   await updateRoomInMemory(room)
+  incrementDaily('rounds')
   await broadcastRoomUpdate({ io, room })
 }
 
